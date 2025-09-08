@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 #include <chrono>
-
+#include <random>
 
 void mergesort(std::vector<int>& arr, int left, int right);
 void merge(std::vector<int>& arr, int left, int mid, int right);
@@ -10,12 +10,16 @@ void merge(std::vector<int>& arr, int left, int mid, int right);
 
 int main(int argc, char* argv[]) {
 
-    //Create vector x the size of argc minus the prompt
-    vector<int> x(argc - 1);
+    //Create vector x the size of argv converted to an integer
+    vector<int> x(std::stoi(argv[1]));
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(1,std::stoi(argv[1]));
     
     //For i = 1(After the prompt), the vector x is set equal to argv
-    for(int i = 1; i < argc; i++){
-        x[i - 1] = std::stoi(argv[i]);
+    for(int i = 1; i < x.size(); i++){
+        x[i] = distrib(gen);
     }
     
     //Time the sort using high resolution clock
